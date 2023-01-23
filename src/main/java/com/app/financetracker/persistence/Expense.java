@@ -7,11 +7,10 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import java.util.Date;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Entity
 public class Expense {
 
     @Id
@@ -21,8 +20,9 @@ public class Expense {
     private Integer amount;
     private String currency;
     private String description;
-    //@ManyToOne
-    //private Category category_id;
+    @ManyToOne
+    @JoinColumn(name="catergory_id", nullable=false)
+    private Category category;
     @NotNull
     private Date date;
 }

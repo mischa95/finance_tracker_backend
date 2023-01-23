@@ -2,44 +2,23 @@ package com.app.financetracker.persistence;
 
 import lombok.*;
 import jakarta.persistence.*;
+import org.hibernate.mapping.Array;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "Category")
-@Table(
-        name = "category",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "category_name_unique", columnNames = "category_name")
-        })
-
+@Entity()
 public class Category {
 
         @Id
-        @SequenceGenerator(
-                name = "category_sequence",
-                sequenceName = "category_sequence",
-                allocationSize = 1)
-        @GeneratedValue(
-                strategy = GenerationType.SEQUENCE,
-                generator = "category_sequence")
-
-        @Column(
-                name = "id",
-                updatable = false)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-        @Column(
-                name = "category_name",
-                nullable = false)
+        @Column(nullable = false)
         private String categoryName;
-
-        //@OneToMany
-        //private List<Expense> expenses;
-
-        public Category(String categoryName) {
-                this.categoryName = categoryName;
-        }
 }
