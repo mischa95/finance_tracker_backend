@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import org.hibernate.mapping.Array;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -21,4 +22,8 @@ public class Category {
 
         @Column(nullable = false)
         private String categoryName;
+
+        @OneToMany(mappedBy = "category")
+        private List<Expense> expenses;
+
 }

@@ -1,33 +1,32 @@
 package com.app.financetracker.controller;
+import com.app.financetracker.dto.ExpenseDTO;
 import com.app.financetracker.persistence.Category;
 import com.app.financetracker.persistence.Expense;
 import com.app.financetracker.service.ExpenseService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/expense")
 public class ExpenseController {
 
     private final ExpenseService expenseService;
 
-    public ExpenseController(ExpenseService expenseService){
-        this.expenseService = expenseService;
-    }
-
+    @ResponseBody
     @GetMapping("/all")
-    public ResponseEntity<List<Expense>> getAllExpenses(){
-        List<Expense> expenses = expenseService.findAllExpenses();
-        return new ResponseEntity<>(expenses, HttpStatus.OK);
+    public List<ExpenseDTO> getAllExpenses(){
+        return expenseService.findAllExpenses();
     }
 
+    @ResponseBody
     @GetMapping("/find/{category}")
-    public ResponseEntity<List<Expense>> getExpenseByCategory(@PathVariable("category") Category category){
-        List<Expense> expenses = expenseService.findExpensesByCategory(category);
-        return new ResponseEntity<>(expenses, HttpStatus.OK);
+    public List<ExpenseDTO> getExpenseByCategory(@PathVariable("category") Category category){
+        return expenseService.findExpensesByCategory(category);
     }
 
     @PostMapping("/add")
@@ -42,9 +41,21 @@ public class ExpenseController {
         return new ResponseEntity<>(updateExpense, HttpStatus.OK);
     }
 
+    @ResponseBody
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteExpense(@PathVariable("id") Long id){
+    public void deleteExpense(@PathVariable("id") Long id){
         expenseService.deleteExpense(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @GetMapping("/sumall")
+    public Integer getSumOfAllExpenses(){
+        return expenseService.getSumOfAllExpenses();
+    }
+
+    @ResponseBody
+    @GetMapping("/sumbycat/{category}")
+    public Integer getSumOfExpensesByCategory(@PathVariable("category") Category category){
+        return expenseService.getSumOfExpensesByCategory(category);
     }
 }

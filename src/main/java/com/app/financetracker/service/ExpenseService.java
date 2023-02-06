@@ -1,39 +1,54 @@
 package com.app.financetracker.service;
 
+import com.app.financetracker.dto.ExpenseDTO;
+import com.app.financetracker.dto.Mapper;
 import com.app.financetracker.persistence.Category;
 import com.app.financetracker.persistence.Expense;
 import com.app.financetracker.repository.ExpenseRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Service
 public class ExpenseService {
     private final ExpenseRepository expenseRepository;
 
-    @Autowired
-    public ExpenseService(ExpenseRepository expenseRepository){
-        this.expenseRepository = expenseRepository;
+    public List<ExpenseDTO> findAllExpenses(){
+        List<Expense> expenseList = expenseRepository.findAll();
+        return expenseList.stream().map(Mapper::expenseToDTO).collect(Collectors.toList());
+    }
+
+    public List<ExpenseDTO> findExpensesByCategory(Category category){
+        List<Expense> expenseList = expenseRepository.findExpenseByCategory(category);
+        return expenseList
+                .stream()
+                .map(Mapper::expenseToDTO)
+                .collect(Collectors.toList());
     }
 
     public Expense addExpense(Expense expense){
         return expenseRepository.save(expense);
     }
 
-    public List<Expense> findAllExpenses(){
-        return expenseRepository.findAll();
-    }
-
-    public List<Expense> findExpensesByCategory(Category category){
-        return expenseRepository.findExpenseByCategory(category);
-    }
-    public void deleteExpense(Long id){
-        expenseRepository.deleteExpenseById(id);
-    }
-
     public Expense updateExpense(Expense expense) {
         return expenseRepository.save(expense);
+    }
+
+    public void deleteExpense(Long id){
+        List<Expense> expenseList = expenseRepository.findAll();
+        expenseList.removeIf(t -> t.getId().equals(id));
+    }
+
+    public Integer getSumOfAllExpenses(){
+        List<Expense> expenseList = expenseRepository.findAll();
+        return expenseList.stream().mapToInt(o -> o.getPrice()).sum();
+    }
+
+    public Integer getSumOfExpensesByCategory(Category category){
+        List<Expense> expenseList = expenseRepository.findExpenseByCategory(category);
+        return expenseList.stream().mapToInt(o -> o.getPrice()).sum();
     }
 }

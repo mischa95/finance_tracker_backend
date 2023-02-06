@@ -1,5 +1,6 @@
 package com.app.financetracker.repository;
 
+import com.app.financetracker.dto.CategoryDTO;
 import com.app.financetracker.persistence.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 

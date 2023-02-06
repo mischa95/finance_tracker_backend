@@ -17,12 +17,13 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     @NotNull
-    private Integer amount;
+    private Integer price;
     private String currency;
     private String description;
-    @ManyToOne
-    @JoinColumn(name="catergory_id", nullable=false)
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
     @NotNull
-    private Date date;
+    private String date;
 }

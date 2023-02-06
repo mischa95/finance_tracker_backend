@@ -1,32 +1,33 @@
 package com.app.financetracker.controller;
 
+import com.app.financetracker.dto.CategoryDTO;
 import com.app.financetracker.persistence.Category;
 import com.app.financetracker.service.CategoryService;
+import com.app.financetracker.service.ExpenseService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
     private final CategoryService categoryService;
+    private final ExpenseService expenseService;
 
-    public CategoryController(CategoryService categoryService){
-        this.categoryService = categoryService;
-    }
-
+    @ResponseBody
     @GetMapping("/all")
-    public ResponseEntity<List<Category>> getAllCategories(){
-        List<Category> categories = categoryService.findAllCategories();
-        return new ResponseEntity<>(categories, HttpStatus.OK);
+    public List<CategoryDTO> getCategories(){
+        return categoryService.findAllCategories();
     }
 
+    @ResponseBody
     @GetMapping("/find/{id}")
-    public ResponseEntity<Category> getCategoryById(@PathVariable("id") Long id){
-        Category category = categoryService.findCategoryById(id);
-        return new ResponseEntity<>(category, HttpStatus.OK);
+    public CategoryDTO getCategoryById(@PathVariable("id") Long id){
+        return categoryService.findCategoryById(id);
     }
 
     @PostMapping("/add")
@@ -41,4 +42,9 @@ public class CategoryController {
         return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/delete/{id}")
+    @ResponseBody
+    public void deleteCategory(@PathVariable("id") Long id){
+        categoryService.deleteCategory(id);
+    }
 }
