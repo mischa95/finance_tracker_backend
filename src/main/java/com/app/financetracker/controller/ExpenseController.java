@@ -1,5 +1,7 @@
 package com.app.financetracker.controller;
+import com.app.financetracker.dto.CategoryDTO;
 import com.app.financetracker.dto.ExpenseDTO;
+import com.app.financetracker.dto.Mapper;
 import com.app.financetracker.persistence.Category;
 import com.app.financetracker.persistence.Expense;
 import com.app.financetracker.service.ExpenseService;
@@ -35,10 +37,10 @@ public class ExpenseController {
         return new ResponseEntity<>(newExpense, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Expense> updateExpense(@RequestBody Expense expense){
-        Expense updateExpense = expenseService.updateExpense(expense);
-        return new ResponseEntity<>(updateExpense, HttpStatus.OK);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Void> updateExpense(@PathVariable("id") Long id, @RequestBody Expense expense){
+        expenseService.updateExpense(id, expense);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @ResponseBody

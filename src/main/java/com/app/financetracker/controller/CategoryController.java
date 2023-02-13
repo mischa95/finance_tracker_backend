@@ -1,6 +1,7 @@
 package com.app.financetracker.controller;
 
 import com.app.financetracker.dto.CategoryDTO;
+import com.app.financetracker.dto.Mapper;
 import com.app.financetracker.persistence.Category;
 import com.app.financetracker.service.CategoryService;
 import com.app.financetracker.service.ExpenseService;
@@ -36,15 +37,15 @@ public class CategoryController {
         return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Category> updateCategory(@RequestBody Category category){
-        Category newCategory = categoryService.updateCategory(category);
-        return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Void> updateCategory(@PathVariable("id") Long id, @RequestBody Category category){
+        categoryService.updateCategory(id, category);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    @ResponseBody
-    public void deleteCategory(@PathVariable("id") Long id){
+    public ResponseEntity<Void> deleteCategory(@PathVariable("id") Long id){
         categoryService.deleteCategory(id);
+        return ResponseEntity.noContent().build();
     }
 }

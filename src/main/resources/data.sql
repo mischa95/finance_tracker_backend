@@ -7,8 +7,8 @@ INSERT INTO category (id, category_name) values(6, 'Alcohol');
 INSERT INTO category (id, category_name) values(7, 'Transportation');
 
 
-INSERT INTO expense (id, price, currency, description, category_id, date) values(1, 12, 'EUR', 'bus ticket', 7, '12-01-2023');
-INSERT INTO expense (id, price, currency, description, category_id, date) values(2, 2, 'EUR', 'bread', 1, '12-01-2023');
-INSERT INTO expense (id, price, currency, description, category_id, date) values(3, 100, 'EUR', 'fuel', 7, '12-01-2023');
-INSERT INTO expense (id, price, currency, description, category_id, date) values(4, 15, 'EUR', 'lunch', 5, '12-01-2023');
-INSERT INTO expense (id, price, currency, description, category_id, date) values(5, 18, 'EUR', 'whiskey', 6, '12-01-2023');
+INSERT INTO expense (id, price, currency, description, category_id, date) values(1, 12, 'EUR', 'bus ticket', 7, '2023-01-12');
+INSERT INTO expense (id, price, currency, description, category_id, date) values(2, 2, 'EUR', 'bread', 1, '2023-01-12');
+INSERT INTO expense (id, price, currency, description, category_id, date) values(3, 100, 'EUR', 'fuel', 7, '2023-01-12');
+INSERT INTO expense (id, price, currency, description, category_id, date) values(4, 15, 'EUR', 'lunch', 5, '2023-01-12');
+INSERT INTO expense (id, price, currency, description, category_id, date) values(5, 18, 'EUR', 'whiskey', 6, '2023-01-12');

@@ -9,6 +9,4 @@ import java.util.List;
 public interface ExpenseRepository extends JpaRepository<Expense, Long> {
 
     List<Expense> findExpenseByCategory(Category category);
-
-    void deleteExpenseById(Long id);
 }
