@@ -1,6 +1,7 @@
 package com.app.financetracker;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -15,14 +16,4 @@ public class FinancetrackerApplication {
 		SpringApplication.run(FinancetrackerApplication.class, args);
 	}
 
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-		http.csrf().disable();
-		return http.build();
-	}
-
-	@Bean
-	public ModelMapper modelMapper(){
-		return new ModelMapper();
-	}
 }

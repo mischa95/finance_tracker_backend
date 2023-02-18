@@ -17,7 +17,6 @@ import java.util.List;
 @RequestMapping("/category")
 public class CategoryController {
     private final CategoryService categoryService;
-    private final ExpenseService expenseService;
 
     @ResponseBody
     @GetMapping("/all")
@@ -31,15 +30,15 @@ public class CategoryController {
         return categoryService.findCategoryById(id);
     }
 
+    @ResponseBody
     @PostMapping("/add")
-    public ResponseEntity<Category> addCategory(@RequestBody Category category){
-        Category newCategory = categoryService.addCategory(category);
-        return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
+    public CategoryDTO addCategory(@RequestBody CategoryDTO categoryDto){
+        return categoryService.addCategory(categoryDto);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Void> updateCategory(@PathVariable("id") Long id, @RequestBody Category category){
-        categoryService.updateCategory(id, category);
+    public ResponseEntity<Void> updateCategory(@PathVariable("id") Long id, @RequestBody CategoryDTO categoryDTO){
+        categoryService.updateCategory(id, categoryDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

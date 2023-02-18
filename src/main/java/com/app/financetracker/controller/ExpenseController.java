@@ -26,20 +26,20 @@ public class ExpenseController {
     }
 
     @ResponseBody
-    @GetMapping("/find/{category}")
-    public List<ExpenseDTO> getExpenseByCategory(@PathVariable("category") Category category){
-        return expenseService.findExpensesByCategory(category);
+    @GetMapping("/find/{id}")
+    public List<ExpenseDTO> getExpenseByCategoryId(@PathVariable("id") Long id){
+        return expenseService.findExpensesByCategory(id);
     }
 
+    @ResponseBody
     @PostMapping("/add")
-    public ResponseEntity<Expense> addExpense(@RequestBody Expense expense){
-        Expense newExpense = expenseService.addExpense(expense);
-        return new ResponseEntity<>(newExpense, HttpStatus.CREATED);
+    public ExpenseDTO addExpense(@RequestBody ExpenseDTO expenseDTO){
+        return expenseService.addExpense(expenseDTO);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Void> updateExpense(@PathVariable("id") Long id, @RequestBody Expense expense){
-        expenseService.updateExpense(id, expense);
+    public ResponseEntity<Void> updateExpense(@PathVariable("id") Long id, @RequestBody ExpenseDTO expenseDTO){
+        expenseService.updateExpense(id, expenseDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -56,8 +56,8 @@ public class ExpenseController {
     }
 
     @ResponseBody
-    @GetMapping("/sumbycat/{category}")
-    public Integer getSumOfExpensesByCategory(@PathVariable("category") Category category){
-        return expenseService.getSumOfExpensesByCategory(category);
+    @GetMapping("/sumbycat/{id}")
+    public Integer getSumOfExpensesByCategoryId(@PathVariable("id") Long id){
+        return expenseService.getSumOfExpensesByCategory(id);
     }
 }

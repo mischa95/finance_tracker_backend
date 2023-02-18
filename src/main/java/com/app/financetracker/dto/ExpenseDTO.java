@@ -15,7 +15,7 @@ public class ExpenseDTO {
     private Integer price;
     private String currency;
     private String description;
-    private String category;
+    private CategoryDTO category;
     private LocalDate date;
 
 }

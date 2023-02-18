@@ -22,7 +22,8 @@ public class Category {
 
         private String categoryName;
 
-        @OneToMany(mappedBy = "category")
+        @OneToMany()
+        @JoinColumn(name = "category_id", referencedColumnName = "id")
         private List<Expense> expenses;
 
 }
