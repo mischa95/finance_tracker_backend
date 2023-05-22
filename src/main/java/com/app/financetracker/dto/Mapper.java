@@ -2,6 +2,7 @@ package com.app.financetracker.dto;
 
 import com.app.financetracker.persistence.Category;
 import com.app.financetracker.persistence.Expense;
+import com.app.financetracker.persistence.User;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -26,5 +27,9 @@ public class Mapper {
         return modelMapper.map(expense, ExpenseDTO.class);
     }
     public Expense dtoToExpense(ExpenseDTO expenseDTO){ return modelMapper.map(expenseDTO, Expense.class);}
+    public UserDTO userToDTO(User user){
+        return modelMapper.map(user, UserDTO.class);
+    }
+    public User dtoToUser(UserDTO userDTO){ return modelMapper.map(userDTO, User.class);}
 
 }

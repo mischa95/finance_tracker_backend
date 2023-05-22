@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/expense")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class ExpenseController {
 
     private final ExpenseService expenseService;
@@ -23,6 +24,12 @@ public class ExpenseController {
     @GetMapping("/all")
     public List<ExpenseDTO> getAllExpenses(){
         return expenseService.findAllExpenses();
+    }
+
+    @ResponseBody
+    @GetMapping("/findexbyid/{id}")
+    public ExpenseDTO getExpenseById(@PathVariable("id") Long id){
+        return expenseService.findExpenseById(id);
     }
 
     @ResponseBody

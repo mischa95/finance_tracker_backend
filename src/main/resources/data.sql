@@ -1,3 +1,5 @@
+
+
 INSERT INTO category (id, category_name) values(1, 'Groceries');
 INSERT INTO category (id, category_name) values(2, 'Bills');
 INSERT INTO category (id, category_name) values(3, 'Household');
@@ -12,3 +14,5 @@ INSERT INTO expense (id, price, currency, description, category_id, date) values
 INSERT INTO expense (id, price, currency, description, category_id, date) values(3, 100, 'EUR', 'fuel', 7, '2023-01-12');
 INSERT INTO expense (id, price, currency, description, category_id, date) values(4, 15, 'EUR', 'lunch', 5, '2023-01-12');
 INSERT INTO expense (id, price, currency, description, category_id, date) values(5, 18, 'EUR', 'whiskey', 6, '2023-01-12');
+
+INSERT INTO login_user (id, username, password) values(1, 'michal95', 'password');

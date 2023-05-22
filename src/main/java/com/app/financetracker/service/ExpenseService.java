@@ -29,6 +29,15 @@ public class ExpenseService {
         return expenseList.stream().map(expense -> modelMapper.expenseToDTO(expense)).collect(Collectors.toList());
     }
 
+    public ExpenseDTO findExpenseById(Long id) {
+        List<Expense> expenseList = expenseRepository.findAll();
+        return expenseList.stream()
+                .map(modelMapper::expenseToDTO)
+                .filter(expense -> Objects.equals(expense.getId(), id))
+                .findFirst()
+                .orElse(null);
+    }
+
     public List<ExpenseDTO> findExpensesByCategory(Long id) {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException("Category not found with id " + id));
         List<Expense> expenseList = expenseRepository.findExpenseByCategory(category);
