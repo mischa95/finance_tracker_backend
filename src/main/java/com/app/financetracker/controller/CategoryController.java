@@ -1,10 +1,7 @@
 package com.app.financetracker.controller;
 
 import com.app.financetracker.dto.CategoryDTO;
-import com.app.financetracker.dto.Mapper;
-import com.app.financetracker.persistence.Category;
 import com.app.financetracker.service.CategoryService;
-import com.app.financetracker.service.ExpenseService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/category")
-@CrossOrigin(origins = "http://localhost:4200/")
 public class CategoryController {
     private final CategoryService categoryService;
 

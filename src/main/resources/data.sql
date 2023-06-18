@@ -16,4 +16,4 @@ INSERT INTO expense (id, price, currency, description, category_id, date) values
 INSERT INTO expense (id, price, currency, description, category_id, date) values(5, 18, 'EUR', 'whiskey', 6, '2023-01-12');
 
 -- BCrypt encrypted password 'password' with strength 4
-INSERT INTO login_user (id, username, password) values(1, 'michal95', '$2a$04$fM6f4Lk2e7.aboIw3aWZUOGErhAdfYKjPgZ2lb0vTflFjbewvYh52');
+INSERT INTO account (id, username, password) values(1, 'michal95', '$2a$04$fM6f4Lk2e7.aboIw3aWZUOGErhAdfYKjPgZ2lb0vTflFjbewvYh52');

@@ -1,10 +1,9 @@
 package com.app.financetracker.persistence;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import java.time.LocalDate;
 
 @Data
