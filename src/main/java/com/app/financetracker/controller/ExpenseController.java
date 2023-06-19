@@ -1,9 +1,5 @@
 package com.app.financetracker.controller;
-import com.app.financetracker.dto.CategoryDTO;
 import com.app.financetracker.dto.ExpenseDTO;
-import com.app.financetracker.dto.Mapper;
-import com.app.financetracker.persistence.Category;
-import com.app.financetracker.persistence.Expense;
 import com.app.financetracker.service.ExpenseService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/expense")
-@CrossOrigin(origins = "http://localhost:4200/")
 public class ExpenseController {
 
     private final ExpenseService expenseService;

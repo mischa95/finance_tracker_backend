@@ -1,37 +1,31 @@
 package com.app.financetracker.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 
+@Configuration
 @EnableWebSecurity
-public class SecurityConfiguration {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth,
-                                PasswordEncoder passwordEncoder,
-                                UserDetailsService userDetailsService) {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder);
-        auth.authenticationProvider(authProvider);
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.httpBasic().and()
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.httpBasic().and()
                 .cors().and()
                 .authorizeRequests()
-                .requestMatchers("/auth/login").permitAll()
+                .antMatchers("/auth/login").permitAll()
                 .anyRequest().authenticated()
-                .and().anonymous().disable()
-                .csrf().disable()
-                .build();
+                .and().anonymous().disable();
+        http.csrf().disable();
     }
 
 }
