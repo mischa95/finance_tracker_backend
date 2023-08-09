@@ -22,5 +22,7 @@ public class Expense {
     @ManyToOne()
     private Category category;
     private LocalDate date;
+    @ManyToOne()
+    private User user;
 
 }

@@ -1,17 +1,11 @@
 package com.app.financetracker.dto;
 
+import com.app.financetracker.persistence.User;
 import com.app.financetracker.persistence.Category;
 import com.app.financetracker.persistence.Expense;
-import com.app.financetracker.persistence.User;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -27,9 +21,8 @@ public class Mapper {
         return modelMapper.map(expense, ExpenseDTO.class);
     }
     public Expense dtoToExpense(ExpenseDTO expenseDTO){ return modelMapper.map(expenseDTO, Expense.class);}
-    public UserDTO userToDTO(User user){
-        return modelMapper.map(user, UserDTO.class);
+    public UserDTO userToDTO(User account){
+        return modelMapper.map(account, UserDTO.class);
     }
-    public User dtoToUser(UserDTO userDTO){ return modelMapper.map(userDTO, User.class);}
-
+    public User dtoToUser(UserDTO accountDTO){ return modelMapper.map(accountDTO, User.class);}
 }

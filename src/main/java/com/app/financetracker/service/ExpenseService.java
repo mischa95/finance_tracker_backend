@@ -1,20 +1,20 @@
 package com.app.financetracker.service;
 
-import com.app.financetracker.dto.CategoryDTO;
 import com.app.financetracker.dto.ExpenseDTO;
 import com.app.financetracker.dto.Mapper;
-import com.app.financetracker.exception.CategoryNotEmptyException;
 import com.app.financetracker.exception.CategoryNotFoundException;
 import com.app.financetracker.exception.ExpenseNotFoundException;
+import com.app.financetracker.exception.UserNotFoundException;
+import com.app.financetracker.persistence.User;
 import com.app.financetracker.persistence.Category;
 import com.app.financetracker.persistence.Expense;
 import com.app.financetracker.repository.CategoryRepository;
 import com.app.financetracker.repository.ExpenseRepository;
+import com.app.financetracker.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -22,11 +22,33 @@ import java.util.stream.Collectors;
 public class ExpenseService {
     private final ExpenseRepository expenseRepository;
     private final CategoryRepository categoryRepository;
+    private final UserRepository userRepository;
     private final Mapper modelMapper;
 
     public List<ExpenseDTO> findAllExpenses() {
         List<Expense> expenseList = expenseRepository.findAll();
         return expenseList.stream().map(expense -> modelMapper.expenseToDTO(expense)).collect(Collectors.toList());
+    }
+
+    public List<ExpenseDTO> findExpensesForCurrentUser(String username){
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("User not found with id " + username));
+        List<Expense> expenseList = expenseRepository.findExpenseByUser(user);
+        return expenseList
+                .stream()
+                .map(modelMapper::expenseToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public Integer getCategoryPercentage(Long id, String username){
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("User not found with id " + username));
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new CategoryNotFoundException("Category not found with id " + id));
+        List<Expense> expenseList = expenseRepository.findExpenseByUser(user);
+        Integer costALlExpenses = expenseList.stream().mapToInt(o -> o.getPrice()).sum();
+        System.out.println(costALlExpenses);
+        Integer costCategoryExpenses = expenseList.stream()
+                .filter(expense -> Objects.equals(expense.getCategory(), category)).mapToInt(o -> o.getPrice()).sum();
+        System.out.println(costCategoryExpenses);
+        return ((costCategoryExpenses*100)/costALlExpenses);
     }
 
     public ExpenseDTO findExpenseById(Long id) {

@@ -1,10 +1,8 @@
 package com.app.financetracker.dto;
 
-import com.app.financetracker.persistence.Category;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -17,5 +15,5 @@ public class ExpenseDTO {
     private String description;
     private CategoryDTO category;
     private LocalDate date;
-
+    private UserDTO user;
 }

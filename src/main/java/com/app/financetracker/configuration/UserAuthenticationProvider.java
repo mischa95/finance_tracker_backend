@@ -18,8 +18,8 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserAuthenticationProvider(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
+    public UserAuthenticationProvider(UserRepository accountRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -29,10 +29,10 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        User student = userRepository.findByUsername(username)
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new BadCredentialsException("Details not found"));
 
-        if (passwordEncoder.matches(password, student.getPassword())) {
+        if (passwordEncoder.matches(password, user.getPassword())) {
             return new UsernamePasswordAuthenticationToken(username, password, new ArrayList<>());
         } else {
             throw new BadCredentialsException("Password mismatch");

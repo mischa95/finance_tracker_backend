@@ -22,9 +22,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.httpBasic().and()
                 .cors().and()
                 .authorizeRequests()
-                .antMatchers("/auth/login").permitAll()
-                .anyRequest().authenticated()
-                .and().anonymous().disable();
+                .antMatchers("/auth/*").permitAll()
+                .anyRequest().authenticated();
+               // .and().anonymous().disable();
         http.csrf().disable();
     }
 

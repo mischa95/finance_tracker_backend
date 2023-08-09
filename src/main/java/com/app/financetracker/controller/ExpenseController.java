@@ -4,6 +4,7 @@ import com.app.financetracker.service.ExpenseService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,18 @@ public class ExpenseController {
     @GetMapping("/findexbyid/{id}")
     public ExpenseDTO getExpenseById(@PathVariable("id") Long id){
         return expenseService.findExpenseById(id);
+    }
+
+    @ResponseBody
+    @GetMapping("/findbyuser")
+    public List<ExpenseDTO> getExpenseForCurrentUser(Authentication authentication){
+        return expenseService.findExpensesForCurrentUser(authentication.getName());
+    }
+
+    @ResponseBody
+    @GetMapping("/getpercentage/{id}")
+    public Integer getCategoryPercentage(@PathVariable("id") Long id, Authentication authentication){
+        return expenseService.getCategoryPercentage(id, authentication.getName());
     }
 
     @ResponseBody
