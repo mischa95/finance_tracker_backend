@@ -9,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 
 @Component
@@ -25,10 +24,8 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
-
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new BadCredentialsException("Details not found"));
 

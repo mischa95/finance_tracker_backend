@@ -1,8 +1,6 @@
 package com.app.financetracker.dto;
 
-import com.app.financetracker.persistence.Expense;
 import lombok.*;
-import java.util.List;
 
 @Data
 @NoArgsConstructor

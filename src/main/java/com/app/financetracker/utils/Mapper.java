@@ -1,5 +1,8 @@
-package com.app.financetracker.dto;
+package com.app.financetracker.utils;
 
+import com.app.financetracker.dto.CategoryDTO;
+import com.app.financetracker.dto.ExpenseDTO;
+import com.app.financetracker.dto.UserDTO;
 import com.app.financetracker.persistence.User;
 import com.app.financetracker.persistence.Category;
 import com.app.financetracker.persistence.Expense;

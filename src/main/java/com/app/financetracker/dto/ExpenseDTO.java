@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class ExpenseDTO {
 
     private Long id;
-    private Integer price;
+    private Double price;
     private String currency;
     private String description;
     private CategoryDTO category;

@@ -15,7 +15,7 @@ public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer price;
+    private Double price;
     private String currency;
     private String description;
 
